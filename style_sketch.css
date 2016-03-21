@@ -1,0 +1,31 @@
+<style>
+body {
+	margin: 0;
+}
+
+#board {
+/*	background-color: #e0ebeb;
+*/	margin: 0 auto;
+	width: 500px;
+	border: 5px double #e38d80;
+}
+.text {
+	text-align: center;
+	color: #767572;
+	font-family: futura;
+	font-size: 24px;
+	margin: 0 auto;
+	padding: 1%;
+	width: 300px;
+}
+
+#save {
+	text-decoration: none;
+	font-size: 18px;
+	border: 2px dotted #767572;
+	margin-top: 5%;
+}
+
+#myCanvas {
+}
+</style>

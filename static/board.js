@@ -78,13 +78,25 @@ function send() {
                 
         // }
         $.ajax({
-        url: "/sketch",
-        success: function() {
-            console.log('2')
-        },
-        'type':'POST',
-        'data': new Array(784)
+                method: "POST",
+                url: "/sketch",
+                processData: false,
+                contentType: "application/json",
+                data: JSON.stringify([1,2,3]),
+                success: function(data) {
+                console.log(data)
+                }
         });
+
+
+        // processData: false,
+        // url: "/sketch",
+        // success: function(data) {
+        //     console.log(data)
+        // },
+        // 'type':'POST',
+        // 'data': $.pos.input_data
+        // });
 
 }
 

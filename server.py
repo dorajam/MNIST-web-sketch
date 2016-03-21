@@ -7,8 +7,11 @@ app = Flask(__name__, static_path = '/static')
 
 @app.route("/sketch", methods=["POST", "GET"])
 def sketch():
-
-	json_data = json.loads(request.data)
+	# import pdb; pdb.set_trace()
+	print request.data
+	print request.form
+	print request.get_json()
+	# json_data = json.loads(request.data)
 	# make neurel net, pass in data
 	return "3"
 

@@ -7,8 +7,7 @@
 		Neural Magic
 	</title>
 	<link rel="stylesheet" type="text/css" href="style_sketch.css">
-	<script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
-	<script src="bower_components/drawingboard.js/js/board.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/jquery-1.12.2.min.js" type="text/javascript"></script>
 	<script src="board.js"></script>
 </head>
 <body>
@@ -16,7 +15,7 @@
 		<p class="text">draw a number</p>
 	</head>
 	<div id="board">
-		<canvas id="myCanvas" width="500px" height="500px">
+		<canvas id="myCanvas" width="400px" height="400px">
 		</canvas>
 		<!-- <p>Color picker: 
 			<select id="selectColor">
@@ -30,7 +29,7 @@
 		</p> -->
 	</div><!-- END board -->
 	<p>
-	<a class = "text" id = "save_button" onclick="send()" style="cursor:pointer"> - - - - - Good enough. Let's see. - - - - - </a>
+	<button class = "text" id = "save_button" onclick="send()" style="cursor:pointer"> let's see. </button>
 </p>
 </body>
 </html>

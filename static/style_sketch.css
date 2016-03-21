@@ -4,9 +4,9 @@ body {
 }
 
 #board {
-/*	background-color: #e0ebeb;
-*/	margin: 0 auto;
-	width: 500px;
+	/*background-color: #e0ebeb;*/
+	margin: 0 auto;
+	width: 400px;
 	border: 5px double #e38d80;
 }
 .text {
@@ -19,11 +19,13 @@ body {
 	width: 300px;
 }
 
-#save {
+#save_button {
 	text-decoration: none;
 	font-size: 18px;
-	border: 2px dotted #767572;
-	margin-top: 5%;
+	/*border: 2px dotted #767572;*/
+	margin: 3% auto;
+	width: 200px;
+	height: 40px;
 }
 
 #myCanvas {

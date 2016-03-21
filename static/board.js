@@ -76,8 +76,15 @@ function send() {
         //         sub += (result[i] + result[i+W2])/2
         
                 
-        }
-        $.ajax({url: "/sketch", success: function(data) {console.log(data)}})
+        // }
+        $.ajax({
+        url: "/sketch",
+        success: function() {
+            console.log('2')
+        },
+        'type':'POST',
+        'data': new Array(784)
+        });
 
 }
 

@@ -8,7 +8,7 @@
                 var isDown = false;
                 var ctx = myCanvas.getContext("2d");
                 var canvasX, canvasY;
-                ctx.lineWidth = 40;
+                ctx.lineWidth = 35;
 
                 // draw on canvas
                 $(myCanvas)
@@ -34,17 +34,14 @@
                 });
         } 
 };
+// resets canvas
+function clearcanvas() {
+    var myCanvas = document.getElementById('myCanvas'),
+        ctx = myCanvas.getContext("2d");
+        ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+}       
 
-        
-        // var dt = myCanvas.toDataURL('image/jpeg');
-        // this.href = dt;
-        // };
-        // var button = document.getElementById('save');
-        // if(button){
-        //         button.addEventListener('click', download, false);
-        
-// button.addEventListener('click', download, false);       
-
+// Sends pixel data to server for the NN
 function send() {
         var myCanvas = document.getElementById("myCanvas");
         ctx = myCanvas.getContext("2d");
@@ -76,15 +73,4 @@ function send() {
                 document.getElementById("result").innerHTML = data;
                 }
         });
-
-
-        // processData: false,
-        // url: "/sketch",
-        // success: function(data) {
-        //     console.log(data)
-        // },
-        // 'type':'POST',
-        // 'data': $.pos.input_data
-        // });
-
 }

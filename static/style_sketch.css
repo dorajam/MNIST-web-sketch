@@ -19,15 +19,20 @@ body {
 }
 
 #save_button {
+	background-color: #eeeeee;
 	text-decoration: none;
 	font-size: 18px;
 	color: #767572;
 	font-family: futura;
 	border: 2px dotted #767572;
 	margin: 3% auto;
-	width: 200px;
+	width: 150px;
 	height: 40px;
 	border-radius: 8px;
+}
+
+#save_button:hover {
+	background-color: #d6d6d6;
 }
 
 .container {
@@ -38,13 +43,25 @@ body {
 .container div {
 	line-height: 50%;
 	border-radius: 3px;
+	text-align: center;
 }
 
 #result{
 	margin: 20px auto;
-	line-height: 50%;
-	height: 30px;
+	line-height: 120%;
+	height: 70px;
+	width: 70px;
 	text-align: center;
 	font-size: 60px;
 	color: #767572;
+	border: 3px double #eeeeee;
+	margin-bottom: 10%;
+}
+
+#quit {
+	font-family: futura;
+	font-size: 30px;
+	color: #9a9997;
+	text-align: center;
+	margin: auto;
 }

@@ -8,11 +8,9 @@
                 var isDown = false;
                 var ctx = myCanvas.getContext("2d");
                 var canvasX, canvasY;
-                // for creating a manipulated canvax inside, use:
-                // ctx.fillStyle = 'white';
-                // ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
-                ctx.lineWidth = 10;
+                ctx.lineWidth = 40;
 
+                // draw on canvas
                 $(myCanvas)
                 .mousedown(function(e){
                 isDown = true;
@@ -26,7 +24,7 @@
                                 canvasX = e.pageX - myCanvas.offsetLeft;
                                 canvasY = e.pageY - myCanvas.offsetTop;
                                 ctx.lineTo(canvasX, canvasY);
-                                ctx.strokeStyle = "#2f291e";
+                                ctx.strokeStyle = "#000000";
                                 ctx.stroke();                               
                                 }
                         })
@@ -52,29 +50,22 @@ function send() {
         ctx = myCanvas.getContext("2d");
         input_data = ctx.getImageData(0, 0, 400, 400).data
         var pixels = []
-        for(var i = 0; i < input_data.length; i=i+4) {
-                pixels.push(input_data[i])
-        }
-        console.log(pixels.length)
-        // var W = H = 400;
-        // var W2 = H2 = 28;
-        // var batchW = Math.floor(W/W2);
-        // var batchH = Math.floor(H/H2);
-        // var result = []
-        // var subresult = 0;
-        // for(var j = 0; j < H*W; j = j+batchW) {
-        //         for(var i = 0; i < W; i = i +batchW) {
-        //                 for(var jj = j; jj < j + batchH; j++) {
-        //                         for(var ii =i; ii < i + batchW; i++) {
-        //                                 subresult += pixels[ii]
-        //                         }
-        //                 }
-        //                 var avr = subresult / ((jj + 1)(ii + 1))
-        //                 result.push()
-        //         }
-        // }
-                
-        // }
+        var res = []
+        // console.log(input_data)
+        for(var i = 0; i < input_data.length; i = i+4) {
+                // convert RGBA to grey scale -> single value (0 0 0 255 is black and 0 0 0 0 is white)
+                res  = 0.21*input_data[i] + 0.72*input_data[i+1] + 0.07*input_data[i+2]
+                // if opacity is large it's black -> should return num close to 1 (to fire)
+                if (input_data[i+3] > 200) {
+                        res = 230.0
+                }
+                // res = 255 - res
+
+                // scale to [0,1]
+                res/= 255.0
+                pixels.push(res)
+                }
+
         $.ajax({
                 method: "POST",
                 url: "/sketch",
@@ -82,7 +73,7 @@ function send() {
                 contentType: "application/json",
                 data: JSON.stringify(pixels),
                 success: function(data) {
-                console.log(data)
+                document.getElementById("result").innerHTML = data;
                 }
         });
 

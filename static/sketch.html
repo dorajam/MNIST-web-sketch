@@ -12,7 +12,7 @@
 </head>
 <body>
 	<head>
-		<p class="text">draw a number</p>
+		<p id="text">draw a number</p>
 	</head>
 	<div id="board">
 		<canvas id="myCanvas" width="400px" height="400px">
@@ -28,8 +28,9 @@
 			</select>
 		</p> -->
 	</div><!-- END board -->
-	<div id="contain">
-	<button class = "text" id = "save_button" onclick="send()" style="cursor:pointer"> let's see. </button>
-</div>
+	<div class="container">
+		<div><button id = "save_button" onclick="send()" style="cursor:pointer"> let me guess </button></div>
+		<div id="result"></div>
+	</div>
 </body>
 </html>

@@ -8,7 +8,7 @@ body {
 	width: 400px;
 	border: 5px double #e38d80;
 }
-.text {
+#text {
 	text-align: center;
 	color: #767572;
 	font-family: futura;
@@ -21,13 +21,30 @@ body {
 #save_button {
 	text-decoration: none;
 	font-size: 18px;
-	/*border: 2px dotted #767572;*/
+	color: #767572;
+	font-family: futura;
+	border: 2px dotted #767572;
 	margin: 3% auto;
 	width: 200px;
 	height: 40px;
+	border-radius: 8px;
 }
 
-#contain {
-	display: flex;
+.container {
+	width: 200px;
+	margin: 1% auto;
 }
 
+.container div {
+	line-height: 50%;
+	border-radius: 3px;
+}
+
+#result{
+	margin: 20px auto;
+	line-height: 50%;
+	height: 30px;
+	text-align: center;
+	font-size: 60px;
+	color: #767572;
+}

@@ -1,12 +1,16 @@
 from flask import Flask, request, send_file, redirect
 import json
 import os
+import sys
 import numpy as np
 from numpy import array
 from skimage.measure import block_reduce
 import sketchNetwork as net
 from sketchNetwork import draw
 from numpyEncoder import *
+import matplotlib.pyplot as plt
+import scipy
+
 
 
 CANVAS_WIDTH = 400
@@ -22,44 +26,54 @@ app = Flask(__name__, static_path = '/static')
 
 @app.route("/sketch", methods=["POST", "GET"])
 def sketch():
-	data = request.get_json()
-	print len(data)
-	a = array(data).reshape(400,400)
-	print a.shape
-	a = block_reduce(a, block_size=(14,14), func=np.mean)
-	a = a[1:,1:]
-	a = a.reshape((784,1))
-	print a.shape
+    data = request.get_json()
 
-	# forward propagate to get the guess by the network
-	f = open("parametersL2W.json", "r")
-	weights = json.load(f, object_hook=json_numpy_obj_hook)
+    # reshape into 400x400 matrix
+    a = array(data).reshape(400,400)   
+    # downsample into 29x29
+    a = block_reduce(a, block_size=(14,14), func=np.mean)
+    # get rid of last row and last col -> 28x28
+    a = a[:-1,:-1]
+    scipy.misc.imsave('outfile.jpg', a)
+    a = a.reshape((784,1))
+    # draw the image in ascii
+    i = 0
+    for j in range(a.shape[0]):
+        for num in np.nditer(a[j]):
+            if i%28 == 0:
+                print "\n",
+            i += 1
+            if num < 0.1:
+                sys.stdout.write(' ')
+            else:
+                sys.stdout.write('x')
+        
+    # forward propagate to get the guess by the network
+    f = open("weightsL2W.json", "r")
+    weights = json.load(f, object_hook=json_numpy_obj_hook)
+    h = open("biasesL2W.json", "r")
+    biases = json.load(h, object_hook=json_numpy_obj_hook)
+    res = net.bingo(a, biases, weights)
 
-	h = open("biasesL2W.json", "r")
-	biases = json.load(h, object_hook=json_numpy_obj_hook)
+    # print res
+    print res
+    res = np.argmax(res)
+    print 'the guess is: ', res
 
-	res = net.bingo(a, biases, weights)
-	# print res
-	res = np.argmax(res)
-	print res, 'yo'
-
-	# make neurel net, pass in data
-	return "res"
+    # make neurel net, pass in data
+    return str(res)
 
 @app.route("/")
 def root():
-	return redirect('static/sketch.html')
+    return redirect('static/sketch.html')
 
-# def block_mean(data, fact):
-#     assert isinstance(fact, int), type(fact)
-#     sx, sy = ar.shape
-#     X, Y = np.ogrid[0:sx, 0:sy]
-#     regions = sy/fact * (X/fact) + Y/fact
-#     res = ndimage.mean(ar, labels=regions, index=np.arange(regions.max() + 1))
-#     res.shape = (sx/fact, sy/fact)
-#     return res
+def softmax(x):
+    """Compute softmax values for each sets of scores in x."""
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
+
 
 if __name__ == "__main__":
-	app.run(debug=True)
+    app.run(debug=True)
 
 

@@ -18,7 +18,7 @@ class Network:
     Steps: 
         - give some input
         - feedforward -> get activation vector
-
+ 
     '''
     def __init__(self, sizes):
         self.layers = len(sizes)

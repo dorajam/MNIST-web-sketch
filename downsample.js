@@ -19,18 +19,20 @@ function downsample(pixels, W, H, W2, H2) {
 	// console.log(result)
 
 
-	for(var j = 0; j < H*W; j = j+batchH*batchW) {
-	// 	for(var i = 0; i < W; i = i +batchW) {
-	// 		for(var jj = 0; jj < j + batchH; j++) {
-	// 			for(var ii = 0; ii < i + batchW; i++) {
-	// 				subresult += pixels[ii]
-	// 			}
-	// 		}
-	// 		var avr = subresult / ((jj + 1)(ii + 1))
-	// 		result.push()
-	// 	}
-	// }
+	for(var j = 0; j < H*W; j = j+batchW) {
+		for(var i = 0; i < W; i = i +batchW) {
+			for(var jj = 0; jj < j + batchH; j++) {
+				for(var ii = 0; ii < i + batchW; i++) {
+					subresult += pixels[ii]
+				}
+			}
+			var avr = subresult / ((jj + 1)(ii + 1))
+			result.push()
+		}
+	}
 
 }
 
-function average()
+function average(arr, index) {
+
+}

@@ -23,9 +23,9 @@ class Network:
     def __init__(self, sizes):
         self.layers = len(sizes)
         self.sizes = sizes                                                              # list of neurons on each layer
-        self.weights = [np.random.randn(y,x) for x,y in zip(sizes[:-1], sizes[1:])]     # create array of weights with random numbers
-        self.biases = [np.random.randn(y,1) for y in sizes[1:]]                         # create array of biases with random numbers
-        self.result_new = []
+        # self.weights = [np.random.randn(y,x) for x,y in zip(sizes[:-1], sizes[1:])]     # create array of weights with random numbers
+        # self.biases = [np.random.randn(y,1) for y in sizes[1:]]                         # create array of biases with random numbers
+        # self.result_new = []
 
     def feedForward(self, a):
         '''Calculates the activation vector from all inputs from previous layer.
@@ -35,6 +35,14 @@ class Network:
         for b, w in zip(self.biases, self.weights):                                      # you loop through each neuron on each layer
             a = sigmoid(np.dot(w, a) + b)                                                # to calculate activation vector in the last layer
         return a                                                                         # z = w . x + b, a is the last output vector
+
+    def bingo(self, a, biases, weights):
+        '''
+        Runs the network with the trained weights and biases and returns a guess.
+        '''
+        for b, w in zip(biases, weights):
+            a = sigmoid(np.dot(w, a) + b)
+        return a  
 
     def gradientDescent(self, trainingSet, batch_size, learningRate, epochs,test_data=None):
         '''

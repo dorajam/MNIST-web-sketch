@@ -11,7 +11,7 @@
                 // for creating a manipulated canvax inside, use:
                 // ctx.fillStyle = 'white';
                 // ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
-                ctx.lineWidth = 5;
+                ctx.lineWidth = 10;
 
                 $(myCanvas)
                 .mousedown(function(e){

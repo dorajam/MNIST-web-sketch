@@ -3,6 +3,9 @@
  //JS file for sketch board
 
  window.onload = function() {
+        $("#accuracyY").hide();
+        $("#accuracyN").hide();
+        $("#show_more").hide()
         var myCanvas = document.getElementById("myCanvas");
         if(myCanvas){
                 var isDown = false;
@@ -39,10 +42,16 @@ function clearcanvas() {
     var myCanvas = document.getElementById('myCanvas'),
         ctx = myCanvas.getContext("2d");
         ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-}       
+        $("#accuracyY").hide();
+        $("#accuracyN").hide();
+        document.getElementById("result").innerHTML = '';
+        $("#show_more").hide()
+}
 
 // Sends pixel data to server for the NN
 function send() {
+        $("#accuracyY").show();
+        $("#accuracyN").show();
         var myCanvas = document.getElementById("myCanvas");
         ctx = myCanvas.getContext("2d");
         input_data = ctx.getImageData(0, 0, 400, 400).data
@@ -61,7 +70,7 @@ function send() {
                 // scale to [0,1]
                 res/= 255.0
                 pixels.push(res)
-                }
+        }
 
         $.ajax({
                 method: "POST",
@@ -74,3 +83,15 @@ function send() {
                 }
         });
 }
+
+function feedback() {
+        var dummy = '<input type="text" placeholder="?">\r\n';
+        document.getElementById("result").innerHTML = dummy;
+        document.getElementById("show_more").innerHTML = "send";
+        $("#show_more").show()
+}
+function send_feedback() {
+        document.getElementById("show_more").innerHTML = "show more";
+}
+
+

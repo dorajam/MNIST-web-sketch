@@ -6,11 +6,9 @@ import numpy as np
 from numpy import array
 from skimage.measure import block_reduce
 import sketchNetwork as net
-from sketchNetwork import draw
 from numpyEncoder import *
 import matplotlib.pyplot as plt
 import scipy
-
 
 
 CANVAS_WIDTH = 400
@@ -55,6 +53,8 @@ def sketch():
     biases = json.load(h, object_hook=json_numpy_obj_hook)
     res = net.bingo(a, biases, weights)
 
+    # larger spikes for potential values
+    res = softmax(res)
     # print res
     print res
     res = np.argmax(res)

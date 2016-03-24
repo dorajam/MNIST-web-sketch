@@ -11,8 +11,9 @@ body {
 #text {
 	text-align: center;
 	color: #767572;
-	font-family: futura;
-	font-size: 24px;
+	font-family: 'indie flower';
+	font-weight:bold;
+	font-size: 40px;
 	margin: 0 auto;
 	padding: 1%;
 	width: 300px;
@@ -21,12 +22,13 @@ body {
 #save_button {
 	background-color: #eeeeee;
 	text-decoration: none;
-	font-size: 18px;
+	font-size: 22px;
 	color: #767572;
-	font-family: futura;
+	font-family: 'indie flower';
+	font-weight:bold;
 	border: 2px dotted #767572;
 	margin: 3% auto;
-	width: 150px;
+	width: 200px;
 	height: 40px;
 	border-radius: 8px;
 }
@@ -36,32 +38,113 @@ body {
 }
 
 .container {
-	width: 200px;
+	width: 400px;
 	margin: 1% auto;
 }
 
 .container div {
 	line-height: 50%;
-	border-radius: 3px;
 	text-align: center;
 }
 
 #result{
+	font-family: 'indie flower';
+	font-weight:bold;
 	margin: 20px auto;
-	line-height: 120%;
+	line-height: 135%;
 	height: 70px;
 	width: 70px;
 	text-align: center;
 	font-size: 60px;
 	color: #767572;
 	border: 3px double #eeeeee;
-	margin-bottom: 10%;
 }
 
 #quit {
-	font-family: futura;
+	font-family: 'indie flower';
+	font-weight:bold;
 	font-size: 30px;
 	color: #9a9997;
+}
+
+.innerClass {
+	display: -webkit-flex;
+	display: flex;
+	margin: 1% auto;
 	text-align: center;
+	width:400px;
+
+}
+.innerClass div {
+	height: 70px;
+	width: 70px;
+	color: #cccccc;
+	font-family: 'indie flower';
+	font-weight:bold;
+	font-size: 60px;
+	text-align: center;
+	margin: 20px auto;
+	line-height: 135%;
+	 -webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 6s; /* Firefox < 16 */
+        -ms-animation: fadein 6s; /* Internet Explorer */
+         -o-animation: fadein 6s; /* Opera < 12.1 */
+            animation: fadein 6s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+
+}
+#show_more {
+	font-family: 'indie flower';
+	font-weight:bold;
+	font-size: 20px;
+	color: #9a9997;
 	margin: auto;
+	-webkit-animation: fadein 6s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 6s; /* Firefox < 16 */
+        -ms-animation: fadein 6s; /* Internet Explorer */
+         -o-animation: fadein 6s; /* Opera < 12.1 */
+            animation: fadein 6s;
+
+}
+
+input {
+    background: transparent;
+    border: none;
+    width:70px;
+    height: 70px;
+    font-size: 60px;
+    color: #767572;
+    text-align: center;
+    font-family: 'indie flower';
+	font-weight:bold;
+}
+
+.post-footer {
+	display: block;
+	max-width: 596px;
+	height: 150px;
+	position: relative;
+	margin:auto;
+}
+
+.post-footer::after {
+	content:"";
+	background-image: url("foot.png");
+	background-position: center;
+	margin: 70px;
+	height: 35px;
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	left:0;
+	right:0;
+	top:0;
 }

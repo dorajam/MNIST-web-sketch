@@ -18,16 +18,6 @@
 	<div id="board">
 		<canvas id="myCanvas" width="400px" height="400px">
 		</canvas>
-		<!-- <p>Color picker: 
-			<select id="selectColor">
-                  <option id="colBlack" value="black" selected="selected">Black</option>
-                  <option id="colRed" value="red">Red</option>
-                  <option id="colBlue" value="blue">Blue</option>
-                  <option id="colGreen" value="green">Green</option>
-                  <option id="colOrange" value="orange">Orange</option>
-                  <option id="colYellow" value="yellow">Yellow</option>
-			</select>
-		</p> -->
 	</div><!-- END board -->
 	<div class="container">
 		<div><button id = "save_button" onclick="send()" style="cursor:pointer"> let me guess </button></div>
@@ -38,6 +28,21 @@
 		</div>
 		<div style="height:50px"><a id="quit" onclick="clearcanvas()" style="cursor:pointer">x</a></div>
 		<div style="height:50px" onclick="send_feedback()"><a id="show_more" style="cursor:pointer"></a></div>
+		<div class="holder">
+		<div class="color_outputs">
+			<div id="output1" style="height:30px; width:30px; background-color: #fff6f6;"></div>
+			<div id="output2" style="height:30px; width:30px; background-color: #ffeeee;"></div>
+			<div id="output3" style="height:30px; width:30px; background-color: #fde1e1;"></div>
+			<div id="output4" style="height:30px; width:30px; background-color: #fdd9d9;"></div>
+			<div id="output5" style="height:30px; width:30px; background-color: #fdcece;"></div>
+			<div id="output6" style="height:30px; width:30px; background-color: #fbbfbf;"></div>
+			<div id="output7" style="height:30px; width:30px; background-color: #f6a3a3;"></div>
+			<div id="output8" style="height:30px; width:30px; background-color: #fb8d8d;"></div>
+			<div id="output9" style="height:30px; width:30px; background-color: #fd6e6e;"></div>
+			<div id="output10" style="height:30px; width:30px; background-color: #ff4f4f;"></div>
+		</div>
+		</div>	
+
 	</div>
 	<footer class = "post-footer"></footer>
 	<p id"signiture" style="color:rgb(102, 102, 102); text-align: center; font-size:12px; font-style:italic;">Handcrafted in New York City, design &amp; code by <br>Dora Jambor</p>

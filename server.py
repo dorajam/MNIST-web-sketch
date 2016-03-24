@@ -55,13 +55,18 @@ def sketch():
 
     # larger spikes for potential values
     res = softmax(res)
-    # print res
-    print res
-    res = np.argmax(res)
-    print 'the guess is: ', res
+
+    # get the probabilities of other guesses
+    res_list = []
+    for i in range(len(res)):
+            index = np.argmax(res)
+            res[index] = 0
+            res_list.append(index)
+    print res_list
+    print 'the guess is: ', res_list[0]
 
     # make neurel net, pass in data
-    return str(res)
+    return str(res_list)
 
 @app.route("/")
 def root():

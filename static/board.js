@@ -5,7 +5,8 @@
  window.onload = function() {
         $("#accuracyY").hide();
         $("#accuracyN").hide();
-        $("#show_more").hide()
+        $("#show_more").hide();
+        $(".color_outputs").hide();
         var myCanvas = document.getElementById("myCanvas");
         if(myCanvas){
                 var isDown = false;
@@ -46,12 +47,17 @@ function clearcanvas() {
         $("#accuracyN").hide();
         document.getElementById("result").innerHTML = '';
         $("#show_more").hide()
+        $(".color_outputs").hide();
+        i = 0
 }
 
 // Sends pixel data to server for the NN
 function send() {
         $("#accuracyY").show();
         $("#accuracyN").show();
+        document.getElementById("show_more").innerHTML = "";
+        i = 0
+        $(".color_outputs").hide();
         var myCanvas = document.getElementById("myCanvas");
         ctx = myCanvas.getContext("2d");
         input_data = ctx.getImageData(0, 0, 400, 400).data
@@ -79,7 +85,25 @@ function send() {
                 contentType: "application/json",
                 data: JSON.stringify(pixels),
                 success: function(data) {
-                document.getElementById("result").innerHTML = data;
+                        var res = data.split(",");
+                        var adjust1 = [res[0][1]];
+                        var adjust2 = [res[9][1]];
+                        res = res.slice(1,-1);
+                        res = adjust1.concat(res, adjust2)
+                        for(var j =0; j < res.length; j++) {
+                                res[j] = parseInt(res[j]);
+                        }
+                document.getElementById("result").innerHTML = res[0];
+                document.getElementById("output10").innerHTML = res[0];
+                document.getElementById("output9").innerHTML = res[1];
+                document.getElementById("output8").innerHTML = res[2];
+                document.getElementById("output7").innerHTML = res[3];
+                document.getElementById("output6").innerHTML = res[4];
+                document.getElementById("output5").innerHTML = res[5];
+                document.getElementById("output4").innerHTML = res[6];
+                document.getElementById("output3").innerHTML = res[7];
+                document.getElementById("output2").innerHTML = res[8];
+                document.getElementById("output1").innerHTML = res[9];
                 }
         });
 }
@@ -88,10 +112,15 @@ function feedback() {
         var dummy = '<input type="text" placeholder="?">\r\n';
         document.getElementById("result").innerHTML = dummy;
         document.getElementById("show_more").innerHTML = "send";
-        $("#show_more").show()
+        $("#show_more").show();
 }
+var i = 0
 function send_feedback() {
-        document.getElementById("show_more").innerHTML = "show more";
+        document.getElementById("show_more").innerHTML = "show guesses";
+        i += 1
+        if(i%2==0) {
+                $(".color_outputs").show();
+        }
 }
 
 

@@ -121,6 +121,7 @@ function send_feedback() {
         if(i%2==0) {
                 $(".color_outputs").show();
         }
+        
 }
 
 

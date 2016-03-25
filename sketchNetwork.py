@@ -1,37 +1,38 @@
-# Doraaa Jambor
+# Dora Jambor
 # MNIST digit recognition 
 # following Michael Nielsen's book on Neural Network and Deep Learning
-# add the json here
-'''My first neural net; without any optimization. 95 percent accuracy in predicting digits, 10 seconds each epoch.
-Uncomment the draw function to see the ascii drawing of each digit and the corresponding prediction.
-Run by unit_test.py, play with accuracy by adjusting the learning rate and epochs.'''
+
+'''Neural network adjusted by L2 regulaizaton against overfitting-> weight decay. 
+with weight squashing to make the activation function smoother for achieving larger learning.'''
 
 import numpy as np
 import random
 import math
-import sys
+import sys  
 import time
+import json
+import base64
+from numpyEncoder import *
+from scipy import misc, ndimage
 
 class Network:            
-    '''
-    Neural Network class
-    Steps: 
-        - give some input
-        - feedforward -> get activation vector
- 
-    '''
     def __init__(self, sizes):
         self.layers = len(sizes)
         self.sizes = sizes                                                              # list of neurons on each layer
-        # self.weights = [np.random.randn(y,x) for x,y in zip(sizes[:-1], sizes[1:])]     # create array of weights with random numbers
-        # self.biases = [np.random.randn(y,1) for y in sizes[1:]]                         # create array of biases with random numbers
-        # self.result_new = []
+        self.squashed_weights_init(sizes)
+        self.result_new = []
+
+    def squashed_weights_init(self, sizes):
+        self.weights = [np.random.randn(y,x)/np.sqrt(x) for x,y in zip(sizes[:-1], sizes[1:])]
+        self.biases = [np.random.randn(y,1) for y in sizes[1:]]
+
+    def rand_weights_init(self,sizes):
+        self.weights = [np.random.randn(y,x) for x,y in zip(sizes[:-1], sizes[1:])]
+        self.biases = [np.random.randn(y,1) for y in sizes[1:]]
+
 
     def feedForward(self, a):
-        '''Calculates the activation vector from all inputs from previous layer.
-        - redefine input vector if not fully connvected ?
-        - or set weights and biases to zero where no connection was made?
-        - layers must be at least 1 - to start from first hidden layer'''
+        '''Calculates the activation vector from all inputs from previous layer.'''
         for b, w in zip(self.biases, self.weights):                                      # you loop through each neuron on each layer
             a = sigmoid(np.dot(w, a) + b)                                                # to calculate activation vector in the last layer
         return a                                                                         # z = w . x + b, a is the last output vector
@@ -44,12 +45,30 @@ class Network:
             a = sigmoid(np.dot(w, a) + b)
         return a  
 
-    def gradientDescent(self, trainingSet, batch_size, learningRate, epochs,test_data=None):
+    def gradientDescent(self, trainingSet, batch_size, learningRate, epochs, lmbda, test_data=None):
         '''
         You have some data from the trainingSet with (x,y) tuples with x
         being the training input and y being the desired output ->classification.
         You can use stochastic gradient descent with smaller batch sizes.
         '''
+        # ----------- if you want to manipulate data ------------ 
+        # extra = trainingSet[:5000]
+        # print 'Length of training data initially: ', len(trainingSet)
+        # data1 = trainingSet + [(ndimage.rotate(x, -10, reshape =False),y) for x,y in extra]
+        # data2 = data1 + [(ndimage.rotate(x, 10, reshape =False),y) for x,y in extra]
+        # trainingSet = data2 + [(ndimage.rotate(x, 0),y) for x,y in extra]
+        # print 'Length of manipulated training data: ', len(trainingSet)
+
+        # # manipulate validation set
+        # extratest = test_data[:1000]
+        # print 'Length of test data initially: ', len(test_data)
+        # test_data1 = test_data + [(ndimage.rotate(x, -10, reshape =False),y) for x,y in extratest]
+        # test_data2 = test_data1 + [(ndimage.rotate(x, 10, reshape =False),y) for x,y in extratest]
+        # test_data = test_data2 + [(ndimage.rotate(x, 0),y) for x,y in extratest]
+        # # should be 40K images
+        # print 'Length of manipulated test data: ',len(test_data)
+        # --------------------------------------------------------- 
+
         if test_data: n_test = len(test_data)
         trainingSize = len(trainingSet)
         self.result_new = []
@@ -60,47 +79,50 @@ class Network:
             start = time.time()
             random.shuffle(trainingSet)
             # create smaller samples to do your computations on                                                   
-            batches = [trainingSet[k:k + batch_size] for k in xrange(0, trainingSize, batch_size)]                                                                              
+            batches = [trainingSet[k:k + batch_size] for k in xrange(0, trainingSize, batch_size)]
             # update each image in each batch
             for batch in batches:
-                self.update(batch, learningRate)
+                self.update(batch, learningRate, lmbda, trainingSet)
             # take the 10K images that were reserved for validation and check accuracy
             print "Validating..."
             self.result_new.append(self.validate(test_data))
             if test_data:
                 print "Epoch {0}: {1} / {2}".format(
-                    i, self.result_new[-1], n_test)
+                    i, self.result_new[-1], n_test), 'Percentage', format(self.result_new[-1]/float(n_test)*100, '.2f')
             else:
                 print "Epoch {0} complete".format(i)
             timer = time.time() - start
             print "Estimated time: ", timer
-        return self.result_new
 
-    def update(self, batch, learningRate):
+        # f = open("weightsL2W.json", "w")
+        # json.dump(self.weights, f, cls=NumpyEncoder)
+        # f.close()
+
+        # b = open("biasesL2W.json", "w")
+        # json.dump(self.biases, b, cls=NumpyEncoder)
+        # b.close()
+        # return self.result_new
+
+    def update(self, batch, learningRate, lmbda, trainingSet):
         '''
         Backpropagate will return derivates of the cost function w.r.t. b 
         and w.r.t. w for each neuron, which will then be used to calculate 
         the new biases and weights matrices. 
         biases = biases - learningRate * deltaB
-        weights = weights -learningRate * deltaW * input
         '''
+        n = len(trainingSet)
         # loop through each picture in the given batch: x is input, y is desired output
         for x,y in batch:
-
             # backpropagate to get (C/b)' and (C/w)' - two vectors
             deltaBiases, deltaWeights = self.backprop(x,y)
 
             # calculate new biases and weights
             self.biases = [b - learningRate * db/len(batch) for b,db in zip(self.biases, deltaBiases)]
-            self.weights = [w - learningRate * dw/len(batch) for w,dw in zip(self.weights, deltaWeights)]
-
+            self.weights = [(1 - learningRate * lmbda/n) * w - learningRate * dw/len(batch) for w,dw in zip(self.weights, deltaWeights)]
 
     def backprop(self, x, y):
         ''' Takes (x,y) where x is the pixel from the training image, y is the desired outcome
         and returns a tuple of two vectors of the same shape as biases and weights.
-        Steps: 
-        1. feedforward while saving each z value in z_vectors
-        2. calculate delta on last layer and backpropagate to update delta_b and delta_w
         '''
         delta_b = [np.zeros(b.shape) for b in self.biases]                             # Set up numpy vector to store bias deltas
         delta_w = [np.zeros(w.shape) for w in self.weights]                            # Set up numpy vector to store weight deltas
@@ -134,16 +156,13 @@ class Network:
         ''' Go through the data you set aside for validation, 
         take all outcomes (x vector) for each picture and get the INDEX of the highest 
         outcome -> the outcome that fired the most. 
-        Then check how many images you'll get the correct result for.
+        Then check how many images youll get the correct result for.
         '''
         test_results = [(np.argmax(self.feedForward(x)),y) for x, y in test_data]
         # draw(test_data, test_result)                                                    # draw images in command line
         return sum(int(x == y) for x, y in test_results)                                # check for accuracy
 
 def draw(test_data, test_result):
-        # print len(test_data[0])       # 2 tuple inputs
-        # print len(test_data[0][0])    # 784x1 pixels => should reshape to 28 * 28
-        # print test_data[0][0][0][0]   # pixel value
         i = 0
         for j in range(len(test_data)):
             for num in np.nditer(test_data[j][0]):
@@ -158,17 +177,12 @@ def draw(test_data, test_result):
             print "The desired class is:", test_data[j][1]
 
 def sigmoid(z):
-        '''
-        Arbitrary choice of function. Use sigmoid or relu in this case.
-        This will help us to create the activation vector.
-        You need something that can be conveniently backpropagated.
-        '''
-        # return math.log(1+math.exp(z))
         return 1.0/(1.0+np.exp(-z))
 
 def sigmoid_prime(z):
     ''' Returns the derivative of sigmoid(z = w.x + b) w.r.t. z'''
     return sigmoid(z)*(1-sigmoid(z))
+
 
 
 

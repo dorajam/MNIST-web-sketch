@@ -4,6 +4,8 @@
 The neural network used for the sketch is a basic 784 x 30 x 10 network, trained on the 50.000 handwritten digits from the MNIST dataset (http://yann.lecun.com/exdb/mnist/).
 The performance of the network is optimized by L2 regularization and squashed weights initialization. This makes the network be 96% accurate.
 
+![alt tag] (relative/path/to/Sketch_docs.gif?raw=true "Title")
+
 Currently:
   1. Draw a digit
   2. Run the canvas image on network -> make a guess

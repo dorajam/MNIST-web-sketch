@@ -8,17 +8,17 @@ The performance of the network is optimized by L2 regularization and squashed we
   <img src="https://cloud.githubusercontent.com/assets/13997178/14068661/70f4c974-f458-11e5-8ad9-ff92fbb3858f.gif" alt="Demo">
 </p>
 
-Currently:
+**Currently:**
   1. Draw a digit
   2. Run the canvas image on network -> make a guess
   3. Ask for feedback (get correct digit)
   4. See the list of guesses according to their probabilities
 
-To implement:
+**To implement:**
   1. Store the feedback image + label in database
   2. Re-train network by the inputted digits (automatically?)
 
-To improve:
+**To improve:**
   1. Sensitivity to the position/size of digit 
         - as the network is trained on the highly preprocessed MNIST digits, the inputted drawing won't necessarily look the same as the training data
         - this makes the network see other digits based on the position/size of your drawing

@@ -1,6 +1,6 @@
  // Dora Jambor
  // March 2016
- //JS file for sketch board
+ //JS file for neural sketch board
 
  window.onload = function() {
         $("#accuracyY").hide();

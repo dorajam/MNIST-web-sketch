@@ -10,10 +10,6 @@ from numpyEncoder import *
 import matplotlib.pyplot as plt
 import scipy
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a7880011177ef0fe58ddff047abf61d74b0f9c70
 CANVAS_WIDTH = 400
 CANVAS_HEIGHT = 400
 NET_DIM = 29

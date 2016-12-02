@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, redirect
+from flask import Flask, request, send_file, render_template
 import json
 import os
 import sys
@@ -27,7 +27,7 @@ def sketch():
     data = request.get_json()
 
     # reshape into 400x400 matrix
-    a = array(data).reshape(400,400)   
+    a = array(data).reshape(400,400)
     # downsample into 29x29
     a = block_reduce(a, block_size=(14,14), func=np.mean)
     # get rid of last row and last col -> 28x28
@@ -45,7 +45,7 @@ def sketch():
                 sys.stdout.write(' ')
             else:
                 sys.stdout.write('x')
-        
+
     # forward propagate to get the guess by the network
     f = open("weightsL2W.json", "r")
     weights = json.load(f, object_hook=json_numpy_obj_hook)
@@ -70,7 +70,7 @@ def sketch():
 
 @app.route("/")
 def root():
-    return redirect('static/sketch.html')
+    return render_template('index.html')
 
 def softmax(x):
     """Compute softmax values for each sets of scores in x."""

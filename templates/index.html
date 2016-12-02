@@ -7,11 +7,24 @@
 		Neural Magic
 	</title>
 	<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="style_sketch.css">
+	<link rel="stylesheet" type="text/css" href="static/style_sketch.css">
 	<script src="http://code.jquery.com/jquery-1.12.2.min.js" type="text/javascript"></script>
-	<script src="board.js"></script>
+	<script src="static/board.js"></script>
+	<link rel="icon"  href="static/assets/maizy.png">
 </head>
 <body>
+	<table>
+		<tr>
+			<td> 
+				<div class="head">
+					<a class = "icon" style="cursor:pointer" href= "https://twitter.com/dorajambor"><img src="static/assets/twitter.png" width=20 alt="t"></a>
+					<a class = "icon" href= "https://www.linkedin.com/in/dorajambor"><img src="static/assets/linkedin.png" width=16 alt="in"></a>
+					<a class = "icon" href= "https://github.com/dorajam"><img src="static/assets/github.png" width=16 alt="git"></a>	
+					<a class = "icon" href= "mailto:dorajambor@gmail.com"><img src="static/assets/gmail.png" width=16.5 alt="g"></a>
+ 				</div>
+			</td>
+		</tr>
+	</table>
 	<head>
 		<p id="text">draw a number</p>
 	</head>
@@ -19,12 +32,13 @@
 		<canvas id="myCanvas" width="400px" height="400px">
 		</canvas>
 	</div><!-- END board -->
+
 	<div class="container">
 		<div><button id = "save_button" onclick="send()" style="cursor:pointer"> let me guess </button></div>
 		<div class="innerClass">
-			<div id="accuracyN" ><a onclick="feedback()" style="cursor:pointer"><img src=incorrect.png width=40 alt="no"></a></div>
+			<div id="accuracyN" ><a onclick="feedback()" style="cursor:pointer"><img src=static/assets/incorrect.png width=40 alt="no"></a></div>
 			<div id="result"></div>
-			<div id="accuracyY"><a onclick="clearcanvas()" style="cursor:pointer"><img src=correct.svg width=40 alt="yes"></a></div>
+			<div id="accuracyY"><a onclick="clearcanvas()" style="cursor:pointer"><img src=static/assets/correct.svg width=40 alt="yes"></a></div>
 		</div>
 		<div style="height:50px"><a id="quit" onclick="clearcanvas()" style="cursor:pointer">x</a></div>
 		<div style="height:50px" onclick="send_feedback()"><a id="show_more" style="cursor:pointer"></a></div>

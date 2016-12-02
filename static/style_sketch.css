@@ -1,6 +1,9 @@
 body {
 	margin: 0;
 }
+#head {
+	border-top: 1px solid #efeef0;
+}
 
 #board {
 	/*background-color: #e0ebeb;*/
@@ -166,7 +169,7 @@ input {
 
 .post-footer::after {
 	content:"";
-	background-image: url("foot.png");
+	background-image: url("assets/foot.png");
 	background-position: center;
 	margin: 70px;
 	height: 35px;
@@ -176,4 +179,17 @@ input {
 	left:0;
 	right:0;
 	top:0;
+}
+.icon {
+	float: left;
+	opacity: 0.4;
+	height: 100%;
+}
+.icon img {
+	margin: 20px 5px 20px 5px ;
+}
+
+.icon img:hover{
+	opacity: 0.7;
+    filter: alpha(opacity=60);
 }

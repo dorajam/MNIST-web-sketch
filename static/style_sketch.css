@@ -1,8 +1,16 @@
 body {
-	margin: 0;
+	margin: 0 auto;
+	padding: 0 0 0 0;
+	text-decoration: none;
+	text-align: center;
+	max-width: 1200px;
 }
-#head {
-	border-top: 1px solid #efeef0;
+.head {
+	position: relative;
+	padding-bottom: 5px;
+	height: 50px;
+	width: 100%;
+	margin: 0 0 0 0;
 }
 
 #board {
@@ -20,6 +28,23 @@ body {
 	margin: 0 auto;
 	padding: 1%;
 	width: 300px;
+}
+.menu {
+	text-decoration: none;
+	display: inline-block;
+	text-align: center;
+	padding: 1%;
+	color: rgb(102, 102, 102);
+	letter-spacing: 1px;
+	font-style: normal;
+	position: relative;
+	margin-bottom: 20px;
+	font-family: "Andale Mono", "Lucida Console", "Courier New", monospace;
+}
+
+.menu:hover{
+	opacity: 0.6;
+	filter: alpha(opacity=60);
 }
 
 #save_button {

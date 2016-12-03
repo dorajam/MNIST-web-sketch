@@ -29,14 +29,14 @@
                                 canvasY = e.pageY - myCanvas.offsetTop;
                                 ctx.lineTo(canvasX, canvasY);
                                 ctx.strokeStyle = "#000000";
-                                ctx.stroke();                               
+                                ctx.stroke();
                                 }
                         })
                 .mouseup(function(e){
                         isDown = false;
-                        ctx.closePath(); 
+                        ctx.closePath();
                 });
-        } 
+        }
 };
 // resets canvas
 function clearcanvas() {
@@ -121,7 +121,7 @@ function send_feedback() {
         if(i%2==0) {
                 $(".color_outputs").show();
         }
-        
+
 }
 
 

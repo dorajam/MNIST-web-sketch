@@ -3,7 +3,7 @@
 # following Michael Nielsen's book on Neural Network and Deep Learning
 
 '''Neural network adjusted by L2 regulaizaton against overfitting-> weight decay. 
-with weight squashing to make the activation function smoother for achieving larger learning.'''
+with weight squashing to make the activation function smoother for achieving better learning.'''
 
 import numpy as np
 import random

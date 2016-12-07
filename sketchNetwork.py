@@ -1,21 +1,21 @@
 # Dora Jambor
-# MNIST digit recognition 
+# MNIST digit recognition
 # following Michael Nielsen's book on Neural Network and Deep Learning
 
-'''Neural network adjusted by L2 regulaizaton against overfitting-> weight decay. 
+'''Neural network adjusted by L2 regulaizaton against overfitting-> weight decay.
 with weight squashing to make the activation function smoother for achieving better learning.'''
 
 import numpy as np
 import random
 import math
-import sys  
+import sys
 import time
 import json
 import base64
 from numpyEncoder import *
 from scipy import misc, ndimage
 
-class Network:            
+class Network:
     def __init__(self, sizes):
         self.layers = len(sizes)
         self.sizes = sizes                                                              # list of neurons on each layer
@@ -43,7 +43,7 @@ class Network:
         '''
         for b, w in zip(biases, weights):
             a = sigmoid(np.dot(w, a) + b)
-        return a  
+        return a
 
     def gradientDescent(self, trainingSet, batch_size, learningRate, epochs, lmbda, test_data=None):
         '''
@@ -51,7 +51,7 @@ class Network:
         being the training input and y being the desired output ->classification.
         You can use stochastic gradient descent with smaller batch sizes.
         '''
-        # ----------- if you want to manipulate data ------------ 
+        # ----------- if you want to manipulate data ------------
         # extra = trainingSet[:5000]
         # print 'Length of training data initially: ', len(trainingSet)
         # data1 = trainingSet + [(ndimage.rotate(x, -10, reshape =False),y) for x,y in extra]
@@ -67,7 +67,7 @@ class Network:
         # test_data = test_data2 + [(ndimage.rotate(x, 0),y) for x,y in extratest]
         # # should be 40K images
         # print 'Length of manipulated test data: ',len(test_data)
-        # --------------------------------------------------------- 
+        # ---------------------------------------------------------
 
         if test_data: n_test = len(test_data)
         trainingSize = len(trainingSet)
@@ -78,7 +78,7 @@ class Network:
             print "Starting epochs"
             start = time.time()
             random.shuffle(trainingSet)
-            # create smaller samples to do your computations on                                                   
+            # create smaller samples to do your computations on
             batches = [trainingSet[k:k + batch_size] for k in xrange(0, trainingSize, batch_size)]
             # update each image in each batch
             for batch in batches:
@@ -105,9 +105,9 @@ class Network:
 
     def update(self, batch, learningRate, lmbda, trainingSet):
         '''
-        Backpropagate will return derivates of the cost function w.r.t. b 
-        and w.r.t. w for each neuron, which will then be used to calculate 
-        the new biases and weights matrices. 
+        Backpropagate will return derivates of the cost function w.r.t. b
+        and w.r.t. w for each neuron, which will then be used to calculate
+        the new biases and weights matrices.
         biases = biases - learningRate * deltaB
         '''
         n = len(trainingSet)
@@ -137,7 +137,7 @@ class Network:
             z_vectors.append(z)       # store all z vectors - last vector is computed right before last layer
             a = sigmoid(z)            # calculate the activation function in the last layer
             all_activations.append(a) # store all act. vectors in this list
-        
+
         # First equation -> calculate delta at final layer from the cost function
         delta = (all_activations[-1] - y) * sigmoid_prime(z_vectors[-1])
         delta_b[-1] = delta
@@ -153,9 +153,9 @@ class Network:
         return delta_b, delta_w
 
     def validate(self, test_data):
-        ''' Go through the data you set aside for validation, 
-        take all outcomes (x vector) for each picture and get the INDEX of the highest 
-        outcome -> the outcome that fired the most. 
+        ''' Go through the data you set aside for validation,
+        take all outcomes (x vector) for each picture and get the INDEX of the highest
+        outcome -> the outcome that fired the most.
         Then check how many images youll get the correct result for.
         '''
         test_results = [(np.argmax(self.feedForward(x)),y) for x, y in test_data]

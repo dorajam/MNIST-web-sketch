@@ -2,7 +2,7 @@
 ## Recognises handwritten digits by utilizing a classical neural network
 
 The neural network used for the sketch is a basic 784 x 30 x 10 network, trained on the 50.000 handwritten digits from the MNIST dataset (http://yann.lecun.com/exdb/mnist/).
-The performance of the network is optimized by L2 regularization and squashed weights initialization. This makes the network be 96% accurate.
+The performance of the network is optimized by L2 regularization and squashed weights initialization. This makes the network be 96% accurate. Even though neural networks built on MNIST can now achieve nearly 100% classification accuracy, I chose to stick to this simple architecture to test my hypothesis.
 
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/13997178/14068661/70f4c974-f458-11e5-8ad9-ff92fbb3858f.gif" alt="Demo">

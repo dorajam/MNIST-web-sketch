@@ -2,6 +2,8 @@ from flask import Flask, request, send_file, render_template
 import json
 import os
 import sys
+import socket
+
 import numpy as np
 from numpy import array
 from skimage.measure import block_reduce
@@ -79,6 +81,6 @@ def softmax(x):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=5000,debug=True)
+    app.run(host='0.0.0.0',port=5000,debug=True, passthrough_errors=False)
 
 

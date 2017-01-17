@@ -11,6 +11,7 @@ import sketchNetwork as net
 from numpyEncoder import *
 import matplotlib.pyplot as plt
 import scipy
+from gevent.wsgi import WSGIServer  # gevent server
 
 
 CANVAS_WIDTH = 400
@@ -81,6 +82,7 @@ def softmax(x):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=5000,debug=True, passthrough_errors=False)
+    http_server = WSGIServer(('', 5000), app)
+    http_server.serve_forever()
 
 
